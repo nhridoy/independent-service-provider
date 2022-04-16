@@ -21,7 +21,7 @@ const Header = () => {
 
   return (
     <div
-      className={`${navClass} transition-all duration-300 fixed w-full top-0 z-10 p-4 flex justify-between`}
+      className={`${navClass} transition-all duration-300 fixed w-full top-0 z-10 p-4 flex flex-col md:flex-row items-center gap-4 justify-between`}
     >
       <Link to="/" className="text-2xl font-semibold">
         Elegant Photographer

@@ -9,8 +9,10 @@ const Banner = () => {
         className="object-cover h-full w-full brightness-50"
       />
       <div className="absolute inset-0 flex flex-col gap-4 items-center justify-center w-full h-full text-white ">
-        <h1 className="text-6xl">Elegant Photographer</h1>
-        <p>Capture the moment with the best quality and the best price.</p>
+        <h1 className="text-4xl md:text-6xl">Elegant Photographer</h1>
+        <p className="text-center">
+          Capture the moment with the best quality and the best price.
+        </p>
       </div>
     </div>
   );
