@@ -1,9 +1,28 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 
 const Header = () => {
+  const navRef = React.useRef();
+  const [navClass, setNavClass] = React.useState("bg-transparent text-white");
+  const [isOpen, setIsOpen] = React.useState(false);
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 200) {
+        setNavClass("bg-white text-black shadow");
+      } else {
+        setNavClass("bg-transparent text-white");
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
-    <div className="bg-transparent text-white fixed w-full top-0 z-10 p-4 flex justify-between">
+    <div
+      className={`${navClass} transition-all duration-300 fixed w-full top-0 z-10 p-4 flex justify-between`}
+    >
       <Link to="/" className="text-2xl font-semibold">
         Elegant Photographer
       </Link>
