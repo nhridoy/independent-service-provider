@@ -1,9 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 
-const Cart = (props) => {
+const Cart = () => {
   const { id } = useParams();
-  console.log(props);
+  const [item, setItem] = React.useState({});
+  useEffect(() => {
+    fetch(`/packageList.json`)
+      .then((response) => response.json())
+      .then((json) =>
+        setItem(json.find((service) => service.id === parseInt(id)))
+      );
+  }, [id]);
+  console.log(item);
   return (
     <div>
       <div className="relative z-0 top-0 h-[40vh] flex items-center justify-center  bg-gray-700 w-full p-4">
@@ -61,6 +69,10 @@ const Cart = (props) => {
             <button className="text-white my-4 bg-green-500 py-2 px-4 rounded-full text-center mt-auto">
               Buy Now
             </button>
+          </div>
+          <div className="flex gap-4 flex-col md:w-1/2">
+            <p>Item:</p>
+            <p>{item.name}</p>
           </div>
         </div>
       </form>
