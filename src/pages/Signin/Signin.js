@@ -1,9 +1,11 @@
 import React from "react";
 import {
   useAuthState,
+  useSendPasswordResetEmail,
   useSignInWithEmailAndPassword,
 } from "react-firebase-hooks/auth";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 import GoogleSign from "../../components/GoogleSign/GoogleSign";
 import auth from "../../firebase.init";
 
@@ -18,6 +20,8 @@ const Signin = () => {
 
   const [signInWithEmailAndPassword, signUser, signLoading, signError] =
     useSignInWithEmailAndPassword(auth);
+  const [sendPasswordResetEmail, sending, PasswordSendError] =
+    useSendPasswordResetEmail(auth);
 
   let from = location.state?.from?.pathname || "/";
 
@@ -30,6 +34,33 @@ const Signin = () => {
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
     signInWithEmailAndPassword(email, password);
+  };
+
+  const handleSendEmailPopup = () => {
+    Swal.fire({
+      title: "Enter your email",
+      input: "email",
+      inputPlaceholder: "Email",
+      showCancelButton: true,
+    }).then((result) => {
+      if (result.value) {
+        sendPasswordResetEmail(result.value)
+          .then(() => {
+            Swal.fire({
+              title: "Email sent",
+              text: "Check your email",
+              icon: "success",
+            });
+          })
+          .catch((err) => {
+            Swal.fire({
+              title: "Error",
+              text: err.message,
+              icon: "error",
+            });
+          });
+      }
+    });
   };
 
   return (
@@ -80,7 +111,10 @@ const Signin = () => {
                   Sign Up
                 </Link>
 
-                <div className="text-blue-700 cursor-pointer text-center">
+                <div
+                  onClick={handleSendEmailPopup}
+                  className="text-blue-700 cursor-pointer text-center"
+                >
                   Forgot Password
                 </div>
               </div>
