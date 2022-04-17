@@ -33,12 +33,11 @@ const Signup = () => {
     const name = nameRef.current.value;
     const email = emailRef.current.value;
     const phone = phoneRef.current.value;
-    console.log(phone);
     const password = passwordRef.current.value;
     await createUserWithEmailAndPassword(email, password);
     await updateProfile({ displayName: name, phoneNumber: phone });
   };
-  console.log(user);
+
   return (
     <div>
       <div className="relative z-0 top-0 h-[40vh] flex items-center justify-center  bg-gray-700 w-full p-4">

@@ -1,5 +1,8 @@
 import React from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
+import {
+  useAuthState,
+  useSignInWithEmailAndPassword,
+} from "react-firebase-hooks/auth";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import GoogleSign from "../../components/GoogleSign/GoogleSign";
 import auth from "../../firebase.init";
@@ -7,13 +10,27 @@ import auth from "../../firebase.init";
 const Signin = () => {
   const navigate = useNavigate();
   const location = useLocation();
+
+  const emailRef = React.createRef();
+  const passwordRef = React.createRef();
+
   const [user, loading, error] = useAuthState(auth);
+
+  const [signInWithEmailAndPassword, signUser, signLoading, signError] =
+    useSignInWithEmailAndPassword(auth);
 
   let from = location.state?.from?.pathname || "/";
 
   if (user) {
     navigate(from, { replace: true });
   }
+
+  const handleSignIn = (e) => {
+    e.preventDefault();
+    const email = emailRef.current.value;
+    const password = passwordRef.current.value;
+    signInWithEmailAndPassword(email, password);
+  };
 
   return (
     <div>
@@ -24,7 +41,7 @@ const Signin = () => {
         <div className="flex justify-center p-4">
           <GoogleSign />
         </div>
-        <form className="p-4 m-auto w-1/2">
+        <form className="p-4 m-auto w-1/2" onSubmit={handleSignIn}>
           <div className="flex flex-col gap-4 md:flex-row">
             <div className="flex flex-col md:w-full">
               <label className="text-gray-600">
@@ -33,6 +50,7 @@ const Signin = () => {
                   className="border border-gray-600 p-2 w-full"
                   type="email"
                   placeholder="Email"
+                  ref={emailRef}
                   required
                 />
               </label>
@@ -43,9 +61,16 @@ const Signin = () => {
                   className="border border-gray-600 p-2 w-full"
                   type="password"
                   placeholder="Password"
+                  ref={passwordRef}
                   required
                 />
               </label>
+              {(error || signError) && (
+                <div className="text-red-600">
+                  {error?.message}
+                  {signError?.message}
+                </div>
+              )}
 
               <div className="flex flex-col gap-4 mt-4">
                 <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
@@ -55,7 +80,9 @@ const Signin = () => {
                   Sign Up
                 </Link>
 
-                <button className="text-blue-700">Forgot Password</button>
+                <div className="text-blue-700 cursor-pointer text-center">
+                  Forgot Password
+                </div>
               </div>
             </div>
           </div>
