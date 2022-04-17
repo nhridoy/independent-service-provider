@@ -1,7 +1,11 @@
+import { signOut } from "firebase/auth";
 import React, { useEffect } from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
 import { Link } from "react-router-dom";
+import auth from "../../firebase.init";
 
 const Header = () => {
+  const [user, loading, error] = useAuthState(auth);
   const navRef = React.useRef();
   const [navClass, setNavClass] = React.useState("bg-transparent text-white");
   const [isOpen, setIsOpen] = React.useState(false);
@@ -33,16 +37,21 @@ const Header = () => {
         <Link to="/blog" className="">
           Blog
         </Link>
-        <Link to="/cart" className="">
-          Cart
-        </Link>
-        <Link to="/signin" className="">
-          Signin
-        </Link>
-        <Link to="/signup" className="">
-          Signup
-        </Link>
-        <button className="">Signout</button>
+
+        {user ? (
+          <button onClick={() => signOut(auth)} className="">
+            Signout
+          </button>
+        ) : (
+          <>
+            <Link to="/signin" className="">
+              Signin
+            </Link>
+            <Link to="/signup" className="">
+              Signup
+            </Link>
+          </>
+        )}
       </div>
     </div>
   );

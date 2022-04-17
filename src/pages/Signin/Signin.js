@@ -1,8 +1,20 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import GoogleSign from "../../components/GoogleSign/GoogleSign";
+import auth from "../../firebase.init";
 
 const Signin = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [user, loading, error] = useAuthState(auth);
+
+  let from = location.state?.from?.pathname || "/";
+
+  if (user) {
+    navigate(from, { replace: true });
+  }
+
   return (
     <div>
       <div className="relative z-0 top-0 h-[40vh] flex items-center justify-center  bg-gray-700 w-full p-4">
