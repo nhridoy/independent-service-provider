@@ -30,7 +30,7 @@ const Cart = () => {
         <h1 className="text-white text-5xl">Buy Now</h1>
       </div>
       <form className="p-4" onSubmit={handleSubmit}>
-        <div className="flex flex-col gap-4 md:flex-row">
+        <div className="flex items-center flex-col gap-4 md:flex-row">
           <div className="flex gap-4 flex-col md:w-1/2">
             <div className="flex flex-col md:flex-row">
               <div className="flex flex-col md:w-1/2">
@@ -92,6 +92,13 @@ const Cart = () => {
                 <h6 className="text-2xl font-semibold text-center">
                   {item.name}
                 </h6>
+                <div className="w-full h-56">
+                  <img
+                    src={item.image}
+                    alt=""
+                    className="w-full h-full object-cover rounded-lg"
+                  />
+                </div>
                 <p className="pb-4">{item.description}</p>
 
                 <div className="">

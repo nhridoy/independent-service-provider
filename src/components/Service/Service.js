@@ -5,6 +5,13 @@ const Service = ({ service }) => {
   return (
     <div className="p-10 flex flex-col gap-4 border rounded-xl shadow">
       <h6 className="text-2xl font-semibold text-center">{service.name}</h6>
+      <div className="w-full h-56">
+        <img
+          src={service.image}
+          alt=""
+          className="w-full h-full object-cover rounded-lg"
+        />
+      </div>
       <p className="pb-4">{service.description}</p>
 
       <div className="">
