@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const Cart = () => {
   const { id } = useParams();
@@ -12,12 +13,23 @@ const Cart = () => {
       );
   }, [id]);
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    Swal.fire({
+      title: "Success!",
+      text: "thank you for the booking.",
+      icon: "success",
+      confirmButtonText: "OK",
+    });
+  };
+
   return (
     <div>
       <div className="relative z-0 top-0 h-[40vh] flex items-center justify-center  bg-gray-700 w-full p-4">
         <h1 className="text-white text-5xl">Buy Now</h1>
       </div>
-      <form className="p-4">
+      <form className="p-4" onSubmit={handleSubmit}>
         <div className="flex flex-col gap-4 md:flex-row">
           <div className="flex gap-4 flex-col md:w-1/2">
             <div className="flex flex-col md:flex-row">
@@ -28,6 +40,7 @@ const Cart = () => {
                     className="border border-gray-600 p-2 w-full"
                     type="text"
                     placeholder="Name"
+                    required
                   />
                 </label>
               </div>
@@ -38,6 +51,7 @@ const Cart = () => {
                     className="border border-gray-600 p-2 w-full"
                     type="text"
                     placeholder="Email"
+                    required
                   />
                 </label>
               </div>
@@ -50,6 +64,7 @@ const Cart = () => {
                     className="border border-gray-600 p-2 w-full"
                     type="text"
                     placeholder="Phone"
+                    required
                   />
                 </label>
               </div>
@@ -61,6 +76,7 @@ const Cart = () => {
                     className="border border-gray-600 p-2 w-full"
                     type="text"
                     placeholder="Adress"
+                    required
                   />
                 </label>
               </div>
