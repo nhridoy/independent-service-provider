@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import GoogleSign from "../../components/GoogleSign/GoogleSign";
 
 const Signin = () => {
   return (
@@ -9,12 +10,7 @@ const Signin = () => {
       </div>
       <div className="">
         <div className="flex justify-center p-4">
-          <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
-            type="button"
-          >
-            Sign In with Google
-          </button>
+          <GoogleSign />
         </div>
         <form className="p-4 m-auto w-1/2">
           <div className="flex flex-col gap-4 md:flex-row">
