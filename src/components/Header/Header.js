@@ -1,7 +1,7 @@
 import { signOut } from "firebase/auth";
 import React, { useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import auth from "../../firebase.init";
 
 const Header = () => {
@@ -31,12 +31,12 @@ const Header = () => {
         Elegant Photographer
       </Link>
       <div className="flex items-center gap-4">
-        <Link to="/about" className="">
+        <NavLink to="/about" className="">
           About
-        </Link>
-        <Link to="/blog" className="">
+        </NavLink>
+        <NavLink to="/blog" className="">
           Blog
-        </Link>
+        </NavLink>
 
         {user ? (
           <button onClick={() => signOut(auth)} className="">
@@ -44,12 +44,12 @@ const Header = () => {
           </button>
         ) : (
           <>
-            <Link to="/signin" className="">
+            <NavLink to="/signin" className="">
               Signin
-            </Link>
-            <Link to="/signup" className="">
+            </NavLink>
+            <NavLink to="/signup" className="">
               Signup
-            </Link>
+            </NavLink>
           </>
         )}
       </div>
