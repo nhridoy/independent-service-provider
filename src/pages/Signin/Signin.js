@@ -8,6 +8,8 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import GoogleSign from "../../components/GoogleSign/GoogleSign";
 import auth from "../../firebase.init";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.min.css";
 
 const Signin = () => {
   const navigate = useNavigate();
@@ -44,21 +46,9 @@ const Signin = () => {
       showCancelButton: true,
     }).then((result) => {
       if (result.value) {
-        sendPasswordResetEmail(result.value)
-          .then(() => {
-            Swal.fire({
-              title: "Email sent",
-              text: "Check your email",
-              icon: "success",
-            });
-          })
-          .catch((err) => {
-            Swal.fire({
-              title: "Error",
-              text: err.message,
-              icon: "error",
-            });
-          });
+        sendPasswordResetEmail(result.value).then(() => {
+          toast("Email sent successfully", { type: "success" });
+        });
       }
     });
   };
@@ -122,6 +112,7 @@ const Signin = () => {
           </div>
         </form>
       </div>
+      <ToastContainer />
     </div>
   );
 };
